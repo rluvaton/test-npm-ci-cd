@@ -11,7 +11,7 @@
     "test": "jest",
     "lint": "eslint . --ext .js,.ts",
     "all-test": "npm test && npm run lint",
-    "release": "npm run all-test && npm run compile && npm version",
+    "release": "npm run all-test && npm run compile && git add dist/* && npm version",
     "release:patch": "npm run release -- patch",
     "release:minor": "npm run release -- minor",
     "release:major": "npm run release -- major"
