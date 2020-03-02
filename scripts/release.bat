@@ -1,1 +1,1 @@
-npm run pre:release && npm run all-test && npm version %1 && npm publish
+npm run pre:release && npm run all-test && npm version %1 && npm publish --registry=http://localhost:4873
