@@ -1,6 +1,6 @@
 {
   "name": "nodejs-typescript-jest",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "NodeJS with TypeScript and Jest",
   "main": "src/main.ts",
   "scripts": {
@@ -8,15 +8,12 @@
     "compile": "npm run pre:compile && tsc",
     "commit-compiled": "git commit -m 'message' -- dist",
     "prepare": "npm run all-test && npm run compile",
-
     "start": "ts-node src/main.ts --no-cache",
     "start:prod": "node ./dist/src/main.js",
     "start:debug": "nodemon %NODE_DEBUG_OPTION% --config nodemon-debug.json",
-
     "test": "jest",
     "lint": "eslint . --ext .js,.ts",
     "all-test": "npm test && npm run lint",
-
     "//": "make sure the there no changes",
     "pre:release": "git diff-index --quiet HEAD",
     "release": "npm run pre:release && npm run all-test && npm version",
