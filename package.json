@@ -10,7 +10,7 @@
     "start:debug": "nodemon %NODE_DEBUG_OPTION% --config nodemon-debug.json",
     "test": "jest",
     "lint": "eslint . --ext .js,.ts",
-    "all-test": "npm test & npm run lint",
+    "all-test": "npm test && npm run lint",
     "release": "npm run all-test && npm run compile && npm version",
     "release:patch": "npm run release -- patch",
     "release:minor": "npm run release -- minor",
