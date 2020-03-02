@@ -1,6 +1,6 @@
 {
   "name": "nodejs-typescript-jest",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "NodeJS with TypeScript and Jest",
   "main": "src/main.ts",
   "scripts": {
