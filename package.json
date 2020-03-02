@@ -17,7 +17,7 @@
     "//": "make sure the there no changes",
     "pre:release": "git diff-index --quiet HEAD",
     "release": "npm run pre:release && npm run all-test && npm version",
-    "release:patch": "npm run release -- patch",
+    "release:patch": "call ./scripts/release.bat patch",
     "release:minor": "npm run release -- minor",
     "release:major": "npm run release -- major"
   },
