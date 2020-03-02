@@ -1,5 +1,5 @@
 describe('Main', () => {
   it('Should success', () => {
-    expect(true).toBe(true);
+    expect(true).toBe(false);
   });
 });
