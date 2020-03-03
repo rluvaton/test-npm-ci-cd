@@ -1,6 +1,6 @@
 {
   "name": "test-npm-ci-cd",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "NodeJS with TypeScript and Jest",
   "main": "src/main.ts",
   "scripts": {
@@ -29,7 +29,9 @@
   "bin": {
     "test-npm-ci-cd": "dist/main.js"
   },
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "keywords": [],
   "license": "ISC",
   "dependencies": {},
