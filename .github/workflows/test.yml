@@ -13,16 +13,16 @@ jobs:
       with:
         label: bump:patch
     - name: Does 'pull_request' has 'bump:patch' label? 
-      run: echo "::set-env name=version_type::patch"
       if: steps.checkPatchLabel.outputs.hasLabel
+      run: echo "::set-env name=version_type::patch"
     
     - uses: Dreamcodeio/pr-has-label-action@master
       id: checkMinorLabel
       with:
         label: bump:minor
     - name: Does 'pull_request' has 'bump:minor' label?
-      run: echo "::set-env name=version_type::minor"
       if: steps.checkMajorLabel.outputs.hasLabel  
+      run: echo "::set-env name=version_type::minor"
     
     - uses: Dreamcodeio/pr-has-label-action@master
       id: checkMajorLabel
@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: check
-      - run: echo env.version_type
+      - run: echo {{env.version_type}}
   
 #   build:
 #     needs: getVersionBumpType
