@@ -22,7 +22,7 @@
     "release:major": "npm run release -- major"
   },
   "bin": {
-    "test-npm-ci-cd": "node dist/main.js"
+    "test-npm-ci-cd": "node ./dist/main.js"
   },
   "keywords": [],
   "license": "ISC",
