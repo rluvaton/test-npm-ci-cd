@@ -10,7 +10,8 @@ jobs:
   getVersionBumpType:
     runs-on: ubuntu-latest
     steps:
-     - id: strongestLabel
+     - uses: rluvaton/get-strongest-label-in-pr-action@master
+       id: strongestLabel
        with:
         GitHubToken: ${{ secrets.MY_GITHUB_TOKEN }}
         labels: "[[\"bump:major\", \"major\"],[\"bump:minor\", \"minor\"],[\"bump:patch\", \"patch\"],]"
