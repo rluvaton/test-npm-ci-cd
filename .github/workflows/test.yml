@@ -1,46 +1,32 @@
-name: release
+name: test
 env:
   version_type: ""
 on:
   push:
     branches:
       - master
-        - 
+
 jobs:
   getVersionBumpType:
     runs-on: ubuntu-latest
     steps:
-    - uses: Dreamcodeio/pr-has-label-action@master
-      id: checkPatchLabel
+    - uses: rluvaton/get-strongest-label-in-pr-action@master
+      id: stongestLabel
       with:
-        label: bump:patch
-    - name: Does 'pull_request' has 'bump:patch' label? 
-      if: steps.checkPatchLabel.outputs.hasLabel
-      run: echo "::set-env name=version_type::patch"
-    
-    - uses: Dreamcodeio/pr-has-label-action@master
-      id: checkMinorLabel
-      with:
-        label: bump:minor
-    - name: Does 'pull_request' has 'bump:minor' label?
-      if: steps.checkMajorLabel.outputs.hasLabel  
-      run: echo "::set-env name=version_type::minor"
-    
-    - uses: Dreamcodeio/pr-has-label-action@master
-      id: checkMajorLabel
-      with:
-        label: bump:major
-    - name: Does 'pull_request' has 'bump:major' label? 
-      if: steps.checkMinorLabel.outputs.hasLabel 
-      run: echo "::set-env name=version_type::major"
-      # run: echo "::set-output name=versionType::major"
+        major: "bump:major"
+        minor: "bump:minor"
+        patch: "bump:patch"
+    - name: What is the strongest label in the 'pull_request':+ ${steps.checkLabel.outputs.strongestLabelText} which is ${steps.checkLabel.outputs.strongestLabel}
+      run: echo "${{ steps.stongestLabel.outputs.strongestLabel }}" 
+    - name: Set Output as env variable
+      run: echo "::set-env name=version_type::${{ steps.stongestLabel.outputs.strongestLabel }}"
   
   check_right_version_type:
     needs: [getVersionBumpType]
     runs-on: ubuntu-latest
     steps:
       - id: check
-      - run: echo {{env.version_type}}
+        run: echo {{env.version_type}}
   
 #   build:
 #     needs: getVersionBumpType
