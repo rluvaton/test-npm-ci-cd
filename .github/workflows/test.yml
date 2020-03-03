@@ -16,4 +16,4 @@ jobs:
         uses: haya14busa/action-bumpr@v1
         
       - id: echo-bump
-        run: step.bumpr.outputs
+        run: "echo step.bumpr.outputs"
