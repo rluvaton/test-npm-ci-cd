@@ -15,5 +15,14 @@ jobs:
       - id: bumpr
         uses: haya14busa/action-bumpr@v1
         
-      - id: echo-bump
-        run: "echo step.bumpr.outputs"
+      - id: echo-bump-patch
+        if: "steps.bumpr.outputs == \"bump:patch\""
+        run: "echo patch"
+        
+      - id: echo-bump-minor
+        if: "steps.bumpr.outputs == \"bump:minor\""
+        run: "echo minor"
+        
+      - id: echo-bump-major
+        if: "steps.bumpr.outputs == \"bump:major\""
+        run: "echo major"
