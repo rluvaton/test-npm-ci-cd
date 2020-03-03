@@ -10,23 +10,14 @@ jobs:
   getVersionBumpType:
     runs-on: ubuntu-latest
     steps:
-    - uses: rluvaton/get-strongest-label-in-pr-action@master
-      id: stongestLabel
-      with:
-        major: "bump:major"
-        minor: "bump:minor"
-        patch: "bump:patch"
-    - name: What is the strongest label in the 'pull_request':+ ${steps.checkLabel.outputs.strongestLabelText} which is ${steps.checkLabel.outputs.strongestLabel}
-      run: echo "${{ steps.stongestLabel.outputs.strongestLabel }}" 
-    - name: Set Output as env variable
-      run: echo "::set-env name=version_type::${{ steps.stongestLabel.outputs.strongestLabel }}"
-  
-  check_right_version_type:
-    needs: [getVersionBumpType]
-    runs-on: ubuntu-latest
-    steps:
-      - id: check
-        run: echo {{env.version_type}}
+     - id: strongestLabel
+       with:
+        GitHubToken: ${{ secrets.MY_GITHUB_TOKEN }}
+        labels: "[[\"bump:major\", \"major\"],[\"bump:minor\", \"minor\"],[\"bump:patch\", \"patch\"],]"
+
+     - name: Echo Label if it's merged pull request commit
+       if: steps.strongestLabel.outputs.error != 'no pull request'
+       run: echo ${{steps.strongestLabel.outputs.strongestLabelValue}} 
   
 #   build:
 #     needs: getVersionBumpType
