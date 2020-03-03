@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-typescript-jest",
+  "name": "test-npm-ci-cd",
   "version": "0.2.4",
   "description": "NodeJS with TypeScript and Jest",
   "main": "src/main.ts",
@@ -20,6 +20,9 @@
     "release:patch": "sh ./scripts/release.sh patch",
     "release:minor": "npm run release -- minor",
     "release:major": "npm run release -- major"
+  },
+  "bin": {
+    "test-npm-ci-cd": "node dist/main.js"
   },
   "keywords": [],
   "license": "ISC",
