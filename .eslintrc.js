@@ -17,7 +17,7 @@ module.exports = {
             plugins: ['@typescript-eslint', 'prettier'],
             extends: ["plugin:prettier/recommended"],
             rules: {
-                "prettier/prettier": ["error", { "singleQuote": true }],
+                "prettier/prettier": ["error"],
 
                 // ORIGINAL tslint.json -> "array-type": false,
                 '@typescript-eslint/array-type': 'off',
