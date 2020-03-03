@@ -14,7 +14,7 @@ jobs:
        id: strongestLabel
        with:
         GitHubToken: ${{ secrets.MY_GITHUB_TOKEN }}
-        labels: "[[\"bump:major\", \"major\"],[\"bump:minor\", \"minor\"],[\"bump:patch\", \"patch\"],]"
+        labels: "[[\"bump:major\", \"major\"],[\"bump:minor\", \"minor\"],[\"bump:patch\", \"patch\"]]"
 
      - name: Echo Label if it's merged pull request commit
        if: steps.strongestLabel.outputs.error != 'no pull request'
