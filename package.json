@@ -1,6 +1,6 @@
 {
   "name": "test-npm-ci-cd",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "NodeJS with TypeScript and Jest",
   "main": "src/main.ts",
   "scripts": {
