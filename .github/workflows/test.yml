@@ -1,4 +1,6 @@
 name: release
+env:
+  version_type: ""
 on:
   push:
     branches:
