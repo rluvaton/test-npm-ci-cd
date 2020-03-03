@@ -16,13 +16,13 @@ jobs:
         uses: haya14busa/action-bumpr@v1
         
       - id: echo-bump-patch
-        if: "steps.bumpr.outputs == \"bump:patch\""
+        if: "steps.bumpr.outputs == 'bump:patch'"
         run: "echo patch"
         
       - id: echo-bump-minor
-        if: "steps.bumpr.outputs == \"bump:minor\""
+        if: "steps.bumpr.outputs == 'bump:minor'"
         run: "echo minor"
         
       - id: echo-bump-major
-        if: "steps.bumpr.outputs == \"bump:major\""
+        if: "steps.bumpr.outputs == 'bump:major'"
         run: "echo major"
