@@ -3,26 +3,51 @@ on:
   push:
     branches:
       - master
-
+        - 
 jobs:
-  release:
+  getVersionBumpType:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      # Bump version on merging Pull Requests with specific labels.
-      # (bump:major,bump:minor,bump:patch)
-      - id: bumpr
-        uses: haya14busa/action-bumpr@v1
-        
-      - id: echo-bump-patch
-        if: "steps.bumpr.outputs == 'bump:patch'"
-        run: "echo patch"
-        
-      - id: echo-bump-minor
-        if: "steps.bumpr.outputs == 'bump:minor'"
-        run: "echo minor"
-        
-      - id: echo-bump-major
-        if: "steps.bumpr.outputs == 'bump:major'"
-        run: "echo major"
+    - uses: Dreamcodeio/pr-has-label-action@master
+      id: checkPatchLabel
+      with:
+        label: bump:patch
+    - name: Does 'pull_request' has 'bump:patch' label? 
+      run: echo "::set-env name=version_type::patch"
+      if: steps.checkPatchLabel.outputs.hasLabel
+    
+    - uses: Dreamcodeio/pr-has-label-action@master
+      id: checkMinorLabel
+      with:
+        label: bump:minor
+    - name: Does 'pull_request' has 'bump:minor' label?
+      run: echo "::set-env name=version_type::minor"
+      if: steps.checkMajorLabel.outputs.hasLabel  
+    
+    - uses: Dreamcodeio/pr-has-label-action@master
+      id: checkMajorLabel
+      with:
+        label: bump:major
+    - name: Does 'pull_request' has 'bump:major' label? 
+      if: steps.checkMinorLabel.outputs.hasLabel 
+      run: echo "::set-env name=version_type::major"
+      # run: echo "::set-output name=versionType::major"
+  
+  check_right_version_type:
+    needs: [getVersionBumpType]
+    runs-on: ubuntu-latest
+    steps:
+      - id: check
+      - run: echo env.version_type
+  
+#   build:
+#     needs: getVersionBumpType
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: Dreamcodeio/pr-has-label-action@master
+#       id: checkLabel
+#       with:
+#         label: bump:patch
+#     - name: Does 'pull_request' has 'bump:major' label? 
+#       run: "npm version"
+#       if: steps.checkLabel.outputs.hasLabel
