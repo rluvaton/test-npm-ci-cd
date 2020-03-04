@@ -1,6 +1,6 @@
 {
   "name": "test-npm-ci-cd",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "NodeJS with TypeScript and Jest",
   "main": "src/main.ts",
   "scripts": {
@@ -9,11 +9,9 @@
     "commit-compiled": "git commit -m 'message' -- dist",
     "prepare": "npm run compile",
     "prepublishOnly": "npm run all-test",
-
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
-
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\" && npm run lint",
     "start": "ts-node src/main.ts --no-cache",
     "start:prod": "node ./dist/src/main.js",
