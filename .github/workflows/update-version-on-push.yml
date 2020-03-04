@@ -21,6 +21,11 @@ jobs:
      - uses: actions/checkout@v2
      - name: NPM Install 
        run: sudo npm install
+     - name: Set Git config
+       if: success()
+       run: |
+         git config user.email "rluvaton@gmail.com"
+         git config user.name "Raz Luvaton"
      - name: Increase Version
        if: success()
        run: npm version ${{steps.strongestLabel.outputs.strongestLabelValue}}
