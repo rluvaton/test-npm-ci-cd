@@ -19,6 +19,11 @@ jobs:
        run: exit 1
      
      - uses: actions/checkout@v2
+     - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+
      - name: NPM Install 
        run: sudo npm install
      - name: Set Git config
@@ -28,5 +33,5 @@ jobs:
          git config user.name "Raz Luvaton"
      - name: Increase Version
        if: success()
-       run: npm version ${{steps.strongestLabel.outputs.strongestLabelValue}}
+       run: sudo npm version ${{steps.strongestLabel.outputs.strongestLabelValue}}
 
