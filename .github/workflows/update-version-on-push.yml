@@ -15,8 +15,8 @@ jobs:
         labels: "[[\"bump:major\", \"major\"],[\"bump:minor\", \"minor\"],[\"bump:patch\", \"patch\"]]"
 
      - uses: actions/checkout@v2
-     - name: LS
-       run: ls
+     - name: Install deps
+       run: npm install eslint prettier -g
      - name: Increase Version
        if: steps.strongestLabel.outputs.error == 0 # No Error
        run: npm version ${{steps.strongestLabel.outputs.strongestLabelValue}}
