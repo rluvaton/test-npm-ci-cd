@@ -1,0 +1,30 @@
+0 name: Create GitHub Release
+1 
+2 on:
+3   push:
+4     # Sequence of patterns matched against refs/tags
+5     tags:
+6       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+7 
+8 jobs:
+9   build:
+10     name: Create Release
+11     runs-on: ubuntu-latest
+12     steps:
+13       - name: Checkout code
+14         uses: actions/checkout@master
+15       - name: Create Release
+16         id: create_release
+17         uses: actions/create-release@latest
+18         env:
+19           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+20         with:
+21           tag_name: ${{ github.ref }}
+22           release_name: Release ${{ github.ref }}
+23           body: |
+24             Changes in this Release
+25             - First Change
+26             - Second Change
+27           draft: false
+28           prerelease: false
+29 
