@@ -14,6 +14,7 @@ jobs:
         GitHubToken: ${{ secrets.GITHUB_TOKEN }}
         labels: "[[\"bump:major\", \"major\"],[\"bump:minor\", \"minor\"],[\"bump:patch\", \"patch\"]]"
 
+     - uses: actions/checkout@v2
      - name: Increase Version
        if: steps.strongestLabel.outputs.error == 0 # No Error
        run: npm version ${{steps.strongestLabel.outputs.strongestLabelValue}}
