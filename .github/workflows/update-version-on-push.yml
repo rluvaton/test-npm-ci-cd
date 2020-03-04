@@ -14,12 +14,14 @@ jobs:
         GitHubToken: ${{ secrets.GITHUB_TOKEN }}
         labels: "[[\"bump:major\", \"major\"],[\"bump:minor\", \"minor\"],[\"bump:patch\", \"patch\"]]"
 
+     - name: Fail Job if prev step failed or have error
+       if: failure() || steps.strongestLabel.outputs.error != 0
+       run: exit 1
+     
      - uses: actions/checkout@v2
-     - name: Install deps
-       run: |
-         sudo npm install eslint prettier -g
-         npm install eslint-plugin-prettier@6.10.0 --save-dev
+     - name: NPM Install 
+       run: sudo npm install
      - name: Increase Version
-       if: steps.strongestLabel.outputs.error == 0 # No Error
+       if: success()
        run: npm version ${{steps.strongestLabel.outputs.strongestLabelValue}}
 
