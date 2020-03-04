@@ -1,33 +1,23 @@
 name: test
-env:
-  version_type: ""
 on:
   push:
     branches:
       - master
 
 jobs:
-  getVersionBumpType:
+  updateAndPublish:
     runs-on: ubuntu-latest
     steps:
-     - uses: rluvaton/get-strongest-label-in-pr-action@master
+     - uses: rluvaton/get-strongest-label-in-pr-action@4.0.0
        id: strongestLabel
        with:
-        GitHubToken: ${{ secrets.MY_GITHUB_TOKEN }}
+        GitHubToken: ${{ secrets.GITHUB_TOKEN }}
         labels: "[[\"bump:major\", \"major\"],[\"bump:minor\", \"minor\"],[\"bump:patch\", \"patch\"]]"
 
-     - name: Echo Label if it's merged pull request commit
-       if: steps.strongestLabel.outputs.error != 'no pull request'
-       run: echo ${{steps.strongestLabel.outputs.strongestLabelValue}} 
-  
-#   build:
-#     needs: getVersionBumpType
-#     runs-on: ubuntu-latest
-#     steps:
-#     - uses: Dreamcodeio/pr-has-label-action@master
-#       id: checkLabel
-#       with:
-#         label: bump:patch
-#     - name: Does 'pull_request' has 'bump:major' label? 
-#       run: "npm version"
-#       if: steps.checkLabel.outputs.hasLabel
+     - name: Increase Version
+       if: steps.strongestLabel.outputs.error == 0 # No Error
+       run: npm version ${{steps.strongestLabel.outputs.strongestLabelValue}}
+
+     - name: Publish Package
+       if: steps.strongestLabel.outputs.error == 0 # No Error
+       run: npm publish
