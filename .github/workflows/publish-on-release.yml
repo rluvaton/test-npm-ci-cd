@@ -1,4 +1,4 @@
-name: Publish Package to NPM and GitHub
+name: Publish Package to NPM and GitHub # hope work
 on:
   release:
     types: [created]
