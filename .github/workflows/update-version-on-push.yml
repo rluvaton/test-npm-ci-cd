@@ -9,7 +9,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: rluvaton/get-strongest-label-in-pr-action@v4.0.0
+      - uses: rluvaton/get-strongest-label-in-pr-action@master
         id: strongestLabel
         with:
          GitHubToken: ${{ secrets.GITHUB_TOKEN }}
