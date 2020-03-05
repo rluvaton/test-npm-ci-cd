@@ -1,37 +1,44 @@
 name: Update Version
 on:
-  push:
+  pull_request:
+    types: closed
     branches:
       - master
 
 jobs:
-  updateAndPublish:
+  publish:
     runs-on: ubuntu-latest
     steps:
-     - uses: rluvaton/get-strongest-label-in-pr-action@v4.0.0
-       id: strongestLabel
-       with:
-        GitHubToken: ${{ secrets.GITHUB_TOKEN }}
-        labels: "[[\"bump:major\", \"major\"],[\"bump:minor\", \"minor\"],[\"bump:patch\", \"patch\"]]"
+      - uses: rluvaton/get-strongest-label-in-pr-action@v4.0.0
+        id: strongestLabel
+        with:
+         GitHubToken: ${{ secrets.GITHUB_TOKEN }}
+         labels: "[[\"bump:major\", \"major\"],[\"bump:minor\", \"minor\"],[\"bump:patch\", \"patch\"]]"
 
-     - name: Fail Job if prev step failed or have error
-       if: failure() || steps.strongestLabel.outputs.error != 0
-       run: exit 1
-     
-     - uses: actions/checkout@v2
-     - uses: actions/setup-node@v1
-       with:
-        node-version: 12
-        registry-url: https://registry.npmjs.org/
-
-     - name: NPM Install 
-       run: sudo npm install
-     - name: Set Git config
-       if: success()
-       run: |
-         git config user.email "rluvaton@gmail.com"
-         git config user.name "Raz Luvaton"
-     - name: Increase Version
-       if: success()
-       run: sudo npm version ${{steps.strongestLabel.outputs.strongestLabelValue}}
-
+      - name: Fail Job if prev step failed or have error
+        if: failure() || steps.strongestLabel.outputs.error != 0
+        run: exit 1
+      - uses: actions/checkout@v1
+        if: github.event.pull_request.merged
+        with:
+          ref: refs/heads/master
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 8
+      - name: npm install
+        run: npm install
+      - name: version and publish
+        run: |
+          git config user.name $GITHUB_ACTOR
+          git config user.email gh-actions-${GITHUB_ACTOR}@github.com          
+          echo "//registry.npmjs.org/:_authToken=$NPM_API_TOKEN" >> ~/.npmrc
+          npm version ${VERSION_TYPE} --force -m "Version %s"          
+          npm publish
+          git remote add gh-origin https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          git push gh-origin HEAD:master --tags
+        env:
+          CI: true
+          NPM_API_TOKEN: ${{ secrets.MY_NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION_TYPE: ${{steps.strongestLabel.outputs.strongestLabelValue}}
