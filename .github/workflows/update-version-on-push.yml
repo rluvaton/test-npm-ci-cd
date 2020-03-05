@@ -2,8 +2,8 @@ name: Update Version
 on:
   pull_request:
     types: closed
-#    branches:
-#      - master
+    branches:
+      - master
 
 jobs:
   publish:
