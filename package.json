@@ -2,52 +2,16 @@
   "name": "test-npm-ci-cd",
   "version": "1.0.1",
   "description": "NodeJS with TypeScript and Jest",
-  "main": "src/main.ts",
+  "main": "src/main.js",
   "scripts": {
-    "pre:compile": "rm -rf ./dist",
-    "compile": "npm run pre:compile && tsc",
-    "commit-compiled": "git commit -m 'message' -- dist",
-    "prepare": "npm run compile",
-    "prepublishOnly": "npm run all-test",
-    "preversion": "npm run lint",
-    "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\" && npm run lint",
-    "start": "ts-node src/main.ts --no-cache",
-    "start:prod": "node ./dist/src/main.js",
-    "start:debug": "nodemon %NODE_DEBUG_OPTION% --config nodemon-debug.json",
-    "test": "jest",
-    "lint": "eslint . --ext .js,.ts",
-    "all-test": "npm test && npm run lint",
-    "//": "make sure the there no changes (not needed in remote)",
-    "pre:release": "git diff-index --quiet HEAD",
-    "release": "npm run pre:release && npm run all-test && npm version",
-    "release:patch": "sh ./scripts/release.sh patch",
-    "release:minor": "npm run release -- minor",
-    "release:major": "npm run release -- major"
+    "test": "echo 'no tests'"
   },
   "bin": {
     "test-npm-ci-cd": "dist/main.js"
   },
-  "files": [
-    "dist/**/*"
-  ],
   "keywords": [],
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
-    "@types/jest": "^25.1.3",
-    "@typescript-eslint/eslint-plugin": "^2.21.0",
-    "@typescript-eslint/eslint-plugin-tslint": "^2.21.0",
-    "@typescript-eslint/parser": "^2.21.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "jest": "^25.1.0",
-    "nodemon": "^2.0.2",
-    "prettier": "^1.19.1",
-    "ts-jest": "^25.1.0",
-    "ts-node": "^8.6.2",
-    "typescript": "^3.8.3"
   }
 }
