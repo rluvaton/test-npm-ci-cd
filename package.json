@@ -9,9 +9,14 @@
   "bin": {
     "test-npm-ci-cd": "src/main.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rluvaton/test-npm-ci-cd.git"
+  },
   "keywords": [],
+  "author": "Raz Luvaton <rluvaton@gmail.com>",
   "license": "ISC",
-  "dependencies": {},
   "devDependencies": {
+    "semantic-release": "^17.4.3"
   }
 }
