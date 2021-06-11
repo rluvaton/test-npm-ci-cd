@@ -24,11 +24,7 @@ jobs:
         run: npm ci
 
       - name: Publish project
-        run: |
-          # Workaround to enable publish with automation tool and 2FA
-          # From https://github.com/semantic-release/npm/issues/277#issuecomment-787128568
-          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-          npx semantic-release@^15
+        run: npx semantic-release@^15
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
