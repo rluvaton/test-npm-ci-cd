@@ -17,6 +17,6 @@
   "author": "Raz Luvaton <rluvaton@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "semantic-release": "^17.4.3"
+    "semantic-release": "^19.0.3"
   }
 }
